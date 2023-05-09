@@ -1,25 +1,11 @@
-const mongoose = require("mongoose");
-const config = require('config');
-const jwt = require('jsonwebtoken');
-const schema =new mongoose.Schema({
-    name: {type: String, required: true},
-    lastName: {type: String, required: true},
-    phoneNumber: {type: String, required: true,unique: true},
-    email: {type: String,unique: true},
-    adminUsername: {type: String, required: true,unique: true},
-    adminPassword: {type: String, required: true,unique: true},
-    accessLevel: {type: String, required: true},
+const mongoose = require('mongoose');
+
+const adminSchema = new mongoose.Schema({
+    name: String,
+    email: String,
 
 });
 
-schema.methods.generateAuthToken = function () {
-    const data = {
-        _id: this._id,
-        username: this.adminUsername,
-        role: "zarAdmin"
-    }
-    return jwt.sign(data, config.get('jwtPrivateKey'));
-}
+const admin = mongoose.model('cityState', adminSchema);
 
-const model = mongoose.model("admin", schema);
-module.exports = model;
+module.exports = admin;

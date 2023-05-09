@@ -42,7 +42,7 @@ class Application {
     }
 
     setupExpressServer() {
-        const port = process.env.myPort || 7079;
+        const port = process.env.myPort || 7076;
         http.listen(port, (err) => {
             if (err) console.log(err);
             else console.log("app listen to port : ".blue.bold + port);

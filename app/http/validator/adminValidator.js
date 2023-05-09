@@ -7,8 +7,17 @@ const validateCreateAdmin = (data) => {
         email: Joi.string(),
         adminUsername: Joi.string().required(),
         adminPassword: Joi.string().required(),
-        accessLevel: Joi.string().required(),
         phoneNumber: Joi.string().required(),
+
+    });
+    return schema.validate(data);
+};
+
+const validateCreate = (data) => {
+    const schema = Joi.object({
+        name: Joi.string().required(),
+        email: Joi.string(),
+
 
     });
     return schema.validate(data);
@@ -43,4 +52,4 @@ const loginValidator = (data) => {
     return schema.validate(data)
 }
 
-module.exports={validateCreateAdmin,loginValidator,validateCreateFormDynamic}
+module.exports={validateCreateAdmin,loginValidator,validateCreateFormDynamic,validateCreate}

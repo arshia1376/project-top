@@ -8,10 +8,13 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage });
 
-router.post("/adminCreate",controller.createAdmin);
+router.post("/createAdmin",controller.createAdmin);
 router.post("/login",controller.login)
-router.post("/adminSearch",controller.adminSearch);
+router.post("/AdminSearch",controller.AdminSearch);
 router.get("/getAdminList",controller.getAdminList);
+router.get("/fakeAdminGenerate",controller.fakeAdminGenerate);
+router.get("/getCity/:id",controller.getCity);
+router.get("/cities",controller.getState);
 router.get("/getAdminId/:id",controller.getIdAdmin);
 router.put("/update/:id",controller.update);
 router.delete("/delete/:id",controller.delete);
