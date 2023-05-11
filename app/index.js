@@ -12,6 +12,7 @@ const moment = require('jalali-moment');
 moment().locale('fa').format('YYYY/M/D');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const i18n = require('i18n');
 
 
 class Application {
@@ -23,6 +24,7 @@ class Application {
         this.setupRoutesAndMiddleware();
         this.setupJalaliMoment();
         this.setupSwaggerUI();
+        this.setupLanguage();
     }
 
     setupMongoose() {
@@ -79,6 +81,24 @@ class Application {
         app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
     }
 
+    setupLanguage(){
+        app.use(i18n.init);
+        i18n.configure({
+            directory: __dirname + '/views',
+            defaultLocale: 'es',
+            queryParameter: 'lang',
+            cookie: 'locale'
+        });
+        app.use((req, res, next) => {
+            i18n.init(req, res);
+            next();
+        });
+        app.get('/lan', (req, res) => {
+            res.send(i18n.__('greeting'));
+        });
+
+    }
+
     setupRoutesAndMiddleware() {
         app.use(express.json());
         //data teq url
@@ -96,6 +116,7 @@ class Application {
     }
 
     setupConfigs(){
+
         console.log(config.get("databaseAddress").yellow);
         const logger = winston.createLogger({
             level: 'info',
